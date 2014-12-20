@@ -1,4 +1,4 @@
 ennel
 =====
 
-Programming language and engine for natural language processing
+Ennel is a domain-specific programming language and rule-based linguistics engine for processing inputs in natural languages. It allows you to write a list of natural language rules, like which words and phrases will occur in the input, what their part of speech is, and what they mean, and Ennel will take care of parsing plain English into its semantic structure. This allows the programmer to write applications that accept natural language input (e.g., "open a new window and search for 'Jurassic World'") by focusing only on the semantics of the input, and Ennel will take care of translating syntax into semantics. An example of a project that uses Ennel is Harold, a calculator that will accept inputs like "give me the first three multiples of the first prime divisor of four", and it can be found on my GitHub at https://github.com/trehansiddharth/harold. Example Ennel source code can also be found in that repository.
