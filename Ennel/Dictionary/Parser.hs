@@ -39,12 +39,12 @@ module Ennel.Dictionary.Parser where
 			makeTypeSignature t xs = (t, TypeSignature (init xs) (last xs))
 
 	targetName :: Parser String String
-	targetName = combine <$> (many1 (noneOf " \t:>[\n~")) `sepBy_` (many1 hspace)
+	targetName = combine <$> (many1 (noneOf " \t:>[\r\n~")) `sepBy_` (many1 hspace)
 		where
 			combine = concat . intersperse " "
 
 	typeValue :: Parser String LexicalCategory
-	typeValue = makeLexicalCategory <$> many1 (noneOf " (-\n") <*> (many hspace *> (pure [] <||> parenthesized (csv inflection)))
+	typeValue = makeLexicalCategory <$> many1 (noneOf " (-\r\n") <*> (many hspace *> (pure [] <||> parenthesized (csv inflection)))
 		where
 			makeLexicalCategory c = case last c of
 				'\'' -> LexicalCategory (read (init c)) Bar
@@ -64,10 +64,10 @@ module Ennel.Dictionary.Parser where
 	bind = bracketed (Bind <$> (targetName <* (spaced (char '~'))) <*> (many1 (noneOf " []")))
 
 	semanticValue :: Parser String SemanticTree
-	semanticValue = SemanticTree <$> spaced (many1 (noneOf " (),\n")) <*> (pure [] <||> parenthesized (csv semanticValue))
+	semanticValue = SemanticTree <$> spaced (many1 (noneOf " (),\r\n")) <*> (pure [] <||> parenthesized (csv semanticValue))
 
 	comment :: Parser String String
-	comment = many hspace *> string "--" *> many (noneOf "\n")
+	comment = many hspace *> string "--" *> many (noneOf "\r\n")
 
 	newline :: Parser String ()
 	newline = (pure <$> char '\n' <||> string "\r\n") >> pure ()
