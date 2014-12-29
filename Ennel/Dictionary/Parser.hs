@@ -69,8 +69,8 @@ module Ennel.Dictionary.Parser where
 	comment :: Parser String String
 	comment = many hspace *> string "--" *> many (noneOf "\n")
 
-	newline :: Parser String Char
-	newline = char '\n'
+	newline :: Parser String ()
+	newline = (pure <$> char '\n' <||> string "\r\n") >> pure ()
 
 	csv :: Parser String a -> Parser String [a]
 	csv p = p `sepBy` (spaced (char ','))
@@ -82,7 +82,7 @@ module Ennel.Dictionary.Parser where
 	bracketed p = char '[' *> p <* char ']'
 
 	hspace :: Parser String Char
-	hspace = oneOf " \t"
+	hspace = oneOf " \r\t"
 
 	spaced :: Parser String a -> Parser String a
 	spaced p = many hspace *> p <* many hspace

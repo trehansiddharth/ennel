@@ -50,5 +50,5 @@ library
   -- other-modules:       
   
   -- Other library packages from which modules are imported.
-  build-depends:       base ==4.6.*, JustParse ==2.1.*, containers ==0.5.*
+  build-depends:       base ==4.6.*, JustParse ==2.1.*, containers ==0.5.*, automaton ==0.1.*
   
